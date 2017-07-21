@@ -75,7 +75,7 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<div class="col-md-12 col-lg-2">
+
 
 
 @include('event.messages')
@@ -85,7 +85,7 @@
 @yield('pagination')
 
 
-</div>
+
 </body>
 
 </html>
