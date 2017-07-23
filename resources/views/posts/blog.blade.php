@@ -28,7 +28,7 @@
                         @foreach($posts as $post)
                             <tr>
                                 <th>{{ $post->id }}</th>
-                                <th>{{ $post->title }}</th>
+                                <th><a href="{{ route('blog.single',$post->id) }}">{{ $post->title }}</a></th>
                                 <th>{{ substr(strip_tags($post->body),0,30) }}{{ strlen(strip_tags($post->body))> 30? "...":"" }}</th>
                                 <th>{{ date ('M, j, Y H:i',strtotime($post->created_at)) }}</th>
                                 <th><a href="{{ route('post.show',$post->id) }}" class="btn btn-info  btn-group">View</a>
