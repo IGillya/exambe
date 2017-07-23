@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ContactMe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ContactMeController extends Controller
 {
@@ -41,7 +42,8 @@ class ContactMeController extends Controller
             'message'=>$request->message,
 
         ]);
-        return redirect('/home');
+        Session::flash('success','Thanks for messaging me');
+        return redirect('/');
     }
 
 
