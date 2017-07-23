@@ -118,11 +118,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if(auth()->user()->id !== $post->user_id) {
+
             $tags = Tag::all();
             return view('posts.edit', compact('post'))
                 ->withTags($tags);
-        }
+
     }
 
     /**
@@ -134,7 +134,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        if(auth()->user()->id !== $post->user_id){
+        if(auth()->user()->id == $post->user_id){
         $this->validate($request, [
             'title'=>'required|max:255',
             'slug'=>'required|min:5|max:10',
@@ -165,12 +165,18 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    {
-        $post->find($post);
-        $post->tags()->detach();
-        $post->delete();
 
-        Session::flash('success','Post DELETED');
-        return redirect()->route('post.index');
+    {
+        if(auth()->user()->id == $post->user_id) {
+            $post->find($post);
+            $post->tags()->detach();
+            $post->delete();
+
+            Session::flash('success', 'Post DELETED');
+            return redirect()->route('post.index');
+        }else{
+            Session::flash('danger', 'Not permited');
+            return redirect()->route('post.show',$post->id);
+        }
     }
 }
